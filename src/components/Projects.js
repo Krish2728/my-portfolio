@@ -24,7 +24,7 @@ export const Projects = () => {
             title: "My-Potfolio",
             description: "Interactive Design Showcase",
             imgUrl: projImg3,
-            url: "https://github.com/Krish2728/Simon-Game",
+            url: "https://github.com/Krish2728/my-portfolio",
         },
     ]
 
