@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import {Container, Row, Col } from "react-bootstrap";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircleFill } from "react-bootstrap-icons";
 import headerImg from "../assets/img/profile-img.png";
 
@@ -36,6 +36,7 @@ export const Banner = () => {
     
         return () => clearInterval(intervalRef.current);
     }, []);
+
     const handleMouseOver = () => {
         let iteration = 0;
         const originalText = 'Turning Vision into Reality';
@@ -61,63 +62,63 @@ export const Banner = () => {
     
           iteration += 1 / 3;
         }, 40);
-      };
-    
+    };
 
     const [loopNum, setLoopNum] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
-    const toRotate = ["Web Developer", "Frontend Dev", "Competitive Programmer"];
+    const toRotate = useMemo(() => ["Web Developer", "Frontend Dev", "Competitive Programmer"], []);
     const [text, setText] = useState('');
-    const [delta, setDelta] = useState(300 - Math.random() *100);
-    const [index, setIndex] = useState(1);
+    const [delta, setDelta] = useState(300 - Math.random() * 100);
     const period = 2000;
+
+    const tick = useCallback(() => {
+        let i = loopNum % toRotate.length;
+        let fullText = toRotate[i];
+        let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
+
+        setText(updatedText);
+        if (isDeleting) {
+            setDelta(prevDelta => prevDelta / 2);
+        }
+        if (!isDeleting && updatedText === fullText) {
+            setIsDeleting(true);
+            setDelta(period);
+        } else if (isDeleting && updatedText === "") {
+            setIsDeleting(false);
+            setLoopNum(loopNum + 1);
+            setDelta(500);
+        }
+    }, [isDeleting, loopNum, text.length, toRotate, period]);
 
     useEffect(() => {
         let ticker = setInterval(() => {
-           tick();
+            tick();
         }, delta);
 
-        return () => { clearInterval(ticker)};
-    }, [text])
+        return () => clearInterval(ticker);
+    }, [text, delta, tick]);  // Add tick as a dependency
 
-    const tick = () => {
-        let i = loopNum % toRotate.length;
-        let fullText = toRotate[i];
-        let updatedText = isDeleting ? fullText.substring(0, text.length -1) : fullText.substring(0, text.length + 1);
+    const [activeLink, setActiveLink] = useState('home');
 
-        setText(updatedText);
-        if(isDeleting){
-            setDelta(prevDelta => prevDelta/2)
-        }
-        if(!isDeleting && updatedText === fullText){
-            setIsDeleting(true);
-            setDelta(period);
-        }
-        else if(isDeleting && updatedText== ""){
-            setIsDeleting(false);
-            setLoopNum(loopNum +1);
-            setDelta(500);
-        }
-    }
     const onUpdateActiveLink = (value) => {
-      setActiveLink(value);
-    }
-    const [activeLink, setActiveLink] = useState('home');  
+        setActiveLink(value);
+    };
+
     return (
         <section className="banner" id="home">
-            <Container> 
+            <Container>
                 <Row className="align-items-center">
                     <Col xs={12} md={6} xl={7}>
-                      <span onMouseOver={handleMouseOver} data-value="Turning Vision into Reality" className="tagline">{displayText}</span>
-                      <h1>{"Hi I'm Krish, "}<span className="wrap">{text}</span></h1>
-                      <p>A dedicated 3rd-year student at TIET, Punjab, specializing in frontend development.Passionate about crafting intuitive interfaces and leveraging cutting-edge technologies like React, I'm eager to contribute to impactful projects that innovate and enhance user engagement.</p>
-                      <a href="#connect" className={activeLink === 'contact' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('contact')}><button>Let's Connect <ArrowRightCircleFill size={25} /></button></a>
+                        <span onMouseOver={handleMouseOver} data-value="Turning Vision into Reality" className="tagline">{displayText}</span>
+                        <h1>{"Hi I'm Krish, "}<span className="wrap">{text}</span></h1>
+                        <p>A dedicated 3rd-year student at TIET, Punjab, specializing in frontend development. Passionate about crafting intuitive interfaces and leveraging cutting-edge technologies like React, I'm eager to contribute to impactful projects that innovate and enhance user engagement.</p>
+                        <a href="#connect" className={activeLink === 'contact' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('contact')}><button>Let's Connect <ArrowRightCircleFill size={25} /></button></a>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
-                      <img src={headerImg} />
+                        <img src={headerImg} alt="profile_pic" />
                     </Col>
                 </Row>
             </Container>
         </section>
-    )
-} 
+    );
+};
