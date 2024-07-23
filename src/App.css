@@ -375,7 +375,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   .other-skills {
     margin-top: 15px;
     scrollbar-width: thin;
-    scrollbar-color: #FCB257  #000000;
+    scrollbar-color: rgb(11, 132, 145)  #000000;
     
   }
   .other-skills::-webkit-scrollbar {
