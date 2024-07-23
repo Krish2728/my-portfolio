@@ -61,7 +61,7 @@ export const Skills = () => {
                         </ul>
                         <h3 style={{marginTop: "20px"}}>Data Structures and Algorithms</h3>
                         <p style={{textAlign: "left", marginLeft: "19px"}}>LeetCode Profile: 
-                          <a style={{textDecoration:"none"}} href="https://leetcode.com/krishkumaar/" target="_blank" rel="noopener noreferrer">Krish Kumaar</a> 
+                          <a style={{textDecoration:"none"}} href="https://leetcode.com/krishkumaar/" target="_blank" rel="noopener noreferrer"> Krish Kumaar</a> 
                           – Solved over 200 problems, honing skills in core data structures and algorithms.</p>
                   </div>
                 </div>
