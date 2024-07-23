@@ -21,7 +21,7 @@ export const Projects = () => {
             url: "https://github.com/Krish2728/E-commerce-web-for-indiam-msmes",
         },
         {
-            title: "My-Potfolio",
+            title: "Potfolio",
             description: "Interactive Design Showcase",
             imgUrl: projImg3,
             url: "https://github.com/Krish2728/my-portfolio",
