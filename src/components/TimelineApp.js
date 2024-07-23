@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSchool,faCalendarDays,faGraduationCap } from '@fortawesome/free-solid-svg-icons';
-import colorSharp2 from "../assets/img/color-sharp2.png";
 export const TimelineApp= () =>{
   return (
     <div className="cont1" id="education">
