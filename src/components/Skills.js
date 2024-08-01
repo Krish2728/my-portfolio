@@ -40,11 +40,11 @@ export const Skills = () => {
                             </div>
                             <div className="item">
                                 <img src={meter2} alt="90-on-meter" />
-                                <h5>ReactJs</h5>
+                                <h5>Designing</h5>
                             </div>
                             <div className="item">
                                 <img src={meter3} alt="80-on-meter" />
-                                <h5>Designing</h5>
+                                <h5>ReactJs</h5>
                             </div>
                         </Carousel>
                         <h3>Other Skills :-</h3>
